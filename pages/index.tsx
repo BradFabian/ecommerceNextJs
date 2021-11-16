@@ -1,7 +1,8 @@
-import { useEffect } from "react";
 
+import type { InferGetStaticPropsType} from "next"
+import getAllproducts from "../framework/shopify/product/get-all-products"
 export async function getStaticProps(){
-  const products = [1,2,3]
+  const products = await getAllproducts()
 
   return {
     props: {
@@ -10,11 +11,11 @@ export async function getStaticProps(){
     revalidate: 4 * 60 * 60
   }
 }
-export default function Home() {
+export default function Home({ products}: InferGetStaticPropsType<typeof getStaticProps>) {
  
   return (
     <div>
-     Hello Shopify
+     {JSON.stringify(products)}
     </div>
   )
 }
